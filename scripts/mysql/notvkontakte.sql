@@ -1,0 +1,1 @@
+SELECT User_auth.IP FROM User_auth, User_list WHERE User_list.id=User_auth.userid AND User_auth.enabled=1 AND User_list.blocked=0 AND User_auth.deleted=0 AND User_list.enabled=1 AND User_auth.vkontakte=0 ORDER BY User_auth.IP

@@ -1,0 +1,292 @@
+-- phpMyAdmin SQL Dump
+-- version 2.11.9.4
+-- http://www.phpmyadmin.net
+--
+-- Хост: localhost
+-- Время создания: Ноя 29 2010 г., 15:22
+-- Версия сервера: 5.0.91
+-- Версия PHP: 5.1.6
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- База данных: `rstat`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `All_traf`
+--
+
+CREATE TABLE IF NOT EXISTS `All_traf` (
+  `dt` datetime NOT NULL default '0000-00-00 00:00:00',
+  `proto` varchar(10) NOT NULL default '',
+  `srcip` varchar(16) NOT NULL default '',
+  `srcport` int(11) NOT NULL default '0',
+  `dstip` varchar(16) NOT NULL default '',
+  `dstport` int(11) NOT NULL default '0',
+  `bytes` int(11) NOT NULL default '0',
+  `prefix` varchar(10) NOT NULL default '',
+  `free` tinyint(3) unsigned NOT NULL default '0',
+  KEY `Index_5` (`proto`,`srcip`,`srcport`),
+  KEY `Index_4` USING BTREE (`dt`,`dstip`,`srcip`)
+) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Customers`
+--
+
+CREATE TABLE IF NOT EXISTS `Customers` (
+  `id` int(11) NOT NULL auto_increment,
+  `Login` varchar(20) NOT NULL,
+  `Pwd` varchar(32) NOT NULL,
+  `GlobalAdmin` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=6 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `filter_list`
+--
+
+CREATE TABLE IF NOT EXISTS `filter_list` (
+  `id` int(11) NOT NULL auto_increment,
+  `Name` varchar(20) collate cp1251_bin NOT NULL default '',
+  `proto` varchar(10) collate cp1251_bin NOT NULL default '',
+  `dst` varchar(30) collate cp1251_bin NOT NULL default '',
+  `dstport` varchar(20) collate cp1251_bin NOT NULL default '',
+  `action` int(11) NOT NULL default '0',
+  `type` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `Name` (`Name`)
+) ENGINE=MyISAM  DEFAULT CHARSET=cp1251 COLLATE=cp1251_bin AUTO_INCREMENT=94 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Group_filters`
+--
+
+CREATE TABLE IF NOT EXISTS `Group_filters` (
+  `id` int(11) NOT NULL auto_increment,
+  `GroupId` int(11) NOT NULL default '0',
+  `FiltrId` int(11) NOT NULL default '0',
+  `Order` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `GroupId` (`GroupId`,`FiltrId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=cp1251 COLLATE=cp1251_bin AUTO_INCREMENT=256 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Group_list`
+--
+
+CREATE TABLE IF NOT EXISTS `Group_list` (
+  `id` int(11) NOT NULL auto_increment,
+  `GroupName` varchar(30) collate cp1251_bin NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=cp1251 COLLATE=cp1251_bin AUTO_INCREMENT=25 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `nets`
+--
+
+CREATE TABLE IF NOT EXISTS `nets` (
+  `id` tinyint(1) NOT NULL auto_increment,
+  `name` varchar(20) NOT NULL default '',
+  `expression` varchar(50) NOT NULL default '',
+  `free` tinyint(1) NOT NULL default '0',
+  `log` tinyint(1) NOT NULL default '1',
+  `domain` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=25 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `OU`
+--
+
+CREATE TABLE IF NOT EXISTS `OU` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(40) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=14 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `OU_customers`
+--
+
+CREATE TABLE IF NOT EXISTS `OU_customers` (
+  `Customerid` int(11) NOT NULL default '1',
+  `OUid` int(11) NOT NULL default '0',
+  KEY `cid` (`Customerid`),
+  KEY `oid` (`OUid`)
+) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `squid_log`
+--
+
+CREATE TABLE IF NOT EXISTS `squid_log` (
+  `dt` datetime NOT NULL default '0000-00-00 00:00:00',
+  `url` varchar(255) NOT NULL default '',
+  `bytes` int(11) NOT NULL default '0',
+  `server` varchar(50) NOT NULL default '',
+  `userid` int(11) NOT NULL default '0',
+  KEY `Index_4` (`dt`,`server`,`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=cp1251 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `User_auth`
+--
+
+CREATE TABLE IF NOT EXISTS `User_auth` (
+  `id` int(11) NOT NULL auto_increment,
+  `userid` int(11) NOT NULL default '0',
+  `IP` varchar(16) collate cp1251_bin NOT NULL default '',
+  `proxy` tinyint(1) NOT NULL default '1',
+  `nat` tinyint(1) NOT NULL default '1',
+  `enabled` tinyint(1) NOT NULL default '1',
+  `grpflt` tinyint(1) NOT NULL default '1',
+  `deleted` tinyint(4) NOT NULL default '0',
+  `comments` varchar(20) collate cp1251_bin NOT NULL default '',
+  `transparent` tinyint(3) unsigned NOT NULL default '1',
+  `bandwidth` int(11) NOT NULL default '512',
+  `mac` varchar(20) collate cp1251_bin default NULL,
+  `vkontakte` tinyint(1) NOT NULL default '1',
+  PRIMARY KEY  (`id`),
+  KEY `userid` (`userid`),
+  KEY `Index_3` (`id`,`userid`,`IP`,`proxy`,`nat`,`enabled`,`deleted`)
+) ENGINE=MyISAM  DEFAULT CHARSET=cp1251 COLLATE=cp1251_bin AUTO_INCREMENT=567 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `User_filters`
+--
+
+CREATE TABLE IF NOT EXISTS `User_filters` (
+  `id` int(11) NOT NULL auto_increment,
+  `UserId` int(11) NOT NULL default '0',
+  `FilterId` int(11) NOT NULL default '0',
+  `order` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `UserId` (`UserId`,`FilterId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=cp1251 COLLATE=cp1251_bin AUTO_INCREMENT=164 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `User_list`
+--
+
+CREATE TABLE IF NOT EXISTS `User_list` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `Login` varchar(40) character set cp1251 collate cp1251_bin NOT NULL default '',
+  `FIO` varchar(60) character set cp1251 collate cp1251_bin NOT NULL default '',
+  `email` varchar(40) character set cp1251 collate cp1251_bin NOT NULL default '',
+  `Enabled` tinyint(1) NOT NULL default '1',
+  `nat` tinyint(1) NOT NULL default '1',
+  `proxy` tinyint(1) NOT NULL default '1',
+  `icq` tinyint(1) NOT NULL default '1',
+  `deleted` tinyint(4) NOT NULL default '0',
+  `OU_id` int(11) NOT NULL default '0',
+  `Group_id` int(11) NOT NULL default '0',
+  `blocked` tinyint(1) NOT NULL default '0',
+  `perhour` int(11) NOT NULL default '0',
+  `perday` int(11) NOT NULL default '0',
+  `permonth` int(11) NOT NULL default '0',
+  `psw` varchar(20) NOT NULL,
+  `wifi` tinyint(4) NOT NULL default '0',
+  `Acct-Session-Id` varchar(32) NOT NULL,
+  `Calling-Station-Id` varchar(64) NOT NULL,
+  `Last-update` datetime NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `Index_4` (`Login`)
+) ENGINE=MyISAM  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=340 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `User_stats`
+--
+
+CREATE TABLE IF NOT EXISTS `User_stats` (
+  `id` int(11) NOT NULL auto_increment,
+  `userid` int(11) NOT NULL default '0',
+  `dat` datetime NOT NULL default '0000-00-00 00:00:00',
+  `bytein` int(11) NOT NULL default '0',
+  `byteout` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `Index_2` (`userid`),
+  KEY `Index_3` (`userid`,`dat`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33509918 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `User_traffic`
+--
+
+CREATE TABLE IF NOT EXISTS `User_traffic` (
+  `userid` int(11) NOT NULL default '0',
+  `Dat` datetime NOT NULL default '0000-00-00 00:00:00',
+  `bytein` bigint(20) NOT NULL default '0',
+  `byteout` bigint(20) NOT NULL default '0',
+  `byteCostIn` bigint(20) NOT NULL default '0',
+  `byteCostOut` bigint(20) NOT NULL default '0',
+  `CostIn` float NOT NULL default '0',
+  `CostOut` float NOT NULL default '0',
+  `proxytraf` bigint(20) NOT NULL default '0',
+  KEY `Index_1` (`userid`),
+  KEY `Index_2` (`Dat`),
+  KEY `Index_3` (`userid`,`Dat`)
+) ENGINE=MyISAM DEFAULT CHARSET=cp1251 COLLATE=cp1251_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `wan_traffic`
+--
+
+CREATE TABLE IF NOT EXISTS `wan_traffic` (
+  `id` bigint(20) NOT NULL auto_increment,
+  `date` datetime default NULL,
+  `wan_in` int(11) NOT NULL default '0',
+  `wan_out` int(11) NOT NULL default '0',
+  `eth_wan` int(11) NOT NULL default '0',
+  `wan_eth` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `Index_2` (`date`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=217145 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `years`
+--
+
+CREATE TABLE IF NOT EXISTS `years` (
+  `year` int(10) unsigned NOT NULL default '2007',
+  PRIMARY KEY  (`year`)
+) ENGINE=MyISAM DEFAULT CHARSET=cp1251;

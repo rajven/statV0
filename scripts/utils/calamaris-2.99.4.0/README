@@ -1,0 +1,95 @@
+Calamaris
+Version 3
+
+What is it?
+-----------
+
+Calamaris is a Perl script, which was first intended as demo for a statistical
+software for Squid.  I started it at 13 January 1997 (Version 1.1) as a
+rewrite of my old Squid-Analysis-Script weekly.pl (which was in German
+language). I announced it (Version 1.16) to the public at 28 Feb 1997.  (see
+http://www.squid-cache.org/mail-archive/squid-users/199702/0551.html for the
+Original-Announcement) Since then it is used by people all around the world,
+and i decided to build a new improved version of it.  Calamaris V2 was a
+nearly complete rewrite, with changed and more reports.
+
+2004 Michael Pophal send me a jumbo-patch against Calamaris 2.59, which adds
+two more reports, and the long wanted graphics to make your
+mangle^H^H^Hagement happy.
+
+Which software can produce Calamaris-parseable Log-files?
+---------------------------------------------------------
+
+* Squid V1.1.alpha1-V2.x (http://www.squid-cache.org/)
+* NetCache V??? (http://www.netapp.com/products/netcache/)
+* Inktomi Traffic Server V???
+  (http://www.inktomi.com/products/network/products/)
+* Oops! proxy server V??? (http://zipper.paco.net/~igor/oops.eng/)
+* Compaq Tasksmart (http://www.compaq.com/tasksmart/)
+* Novell Internet Caching System (http://www.novell.com/products/ics/)
+* Netscape/iPlanet/SunONE Web Proxy Server
+  (http://www.iplanet.com/downloads/download/detail_14_13.html)
+* Squid with the SmartFilter-patch
+* Cisco Content Engines
+  (http://www.cisco.com/en/US/products/hw/contnetw/index.html)
+
+Where to get Calamaris?
+-----------------------
+
+The Calamaris-Home-page is located at http://Calamaris.Cord.de/
+
+There is also an Announcement-Mailing-list. To subscribe send mail with
+'subscribe your@mail.adr.ess' in the Mail-Body to
+<Calamaris-announce-request@Cord.de>.  Subscribers will get a mail on every new
+release, including a list of the changes. --> low traffic.
+
+Philipp Frauenfelder <pfrauenf@debian.org> has build a Debian Package, which
+can be found via http://packages.debian.org/calamaris .
+
+There is a port for FreeBSD, which can be found at
+http://www.freebsd.org/cgi/ports.cgi?query=calamaris .
+
+A package for NetBSD is here:
+ftp://ftp.netbsd.org/pub/NetBSD/packages/pkgsrc/www/calamaris/README.html
+
+rpms are also available from various people. You can search for them
+via http://rpmfind.net/linux/rpm2html/search.php?query=calamaris .
+
+
+Is there anything else?
+-----------------------
+
+Ernst Heiri has build a spin-off of my Calamaris V1, which can be found
+*where?*
+
+There is also a C++-port of Ernst Heiri's Calamaris available. It is
+(according to the author Jens-S. Voeckler <voeckler@rvs.uni-hannover.de>) five
+times faster than the Perl-variant.  check
+http://www.cache.dfn.de/DFN-Cache/Development/seafood.html for this.
+
+more Squid-logfile-Analysers can be found via the Squid-Home-page at
+http://www.squid-cache.org/Scripts/
+
+
+Thank You!
+----------
+
+* The developers and contributors of Squid.
+* The developers and contributors of Perl.
+* The contributors, feature requesters and bug-reporters of Calamaris.
+* Gerold 'Nimm Perl' Meerkoetter.
+* Massimo Carnevali <lec3748@iperbole.bologna.it>
+* Michael Pophal <michael.pophal@nefkom.de>
+
+Not happy yet?
+--------------
+
+Drop me a line to <Calamaris@Cord.de> and tell me what is missing or wrong or
+not clear or whatever. You are welcome (especially if you read this file that
+far :-)
+
+
+Version of the README
+---------------------
+
+$Id: README,v 3.0 2004/09/15 20:46:31 cord Exp $
